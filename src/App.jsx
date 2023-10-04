@@ -1,6 +1,8 @@
 import "./App.css";
 import {useState} from "react";
-import  Axios  from "axios";
+import Axios from "axios";
+
+
 
 const App = () => {
   const [pokemonName, setPokemonName] = useState("");
@@ -25,7 +27,7 @@ const App = () => {
         name: pokemonName,
         number: res.data.id,
         species: res.data.species.name,
-        image: res.data.sprites.front_default,
+        image: res.data.sprites.versions["generation-v"]["black-white"].animated.front_default,
         hp: res.data.stats[0].base_stat,
         attack: res.data.stats[1].base_stat,
         defense: res.data.stats[2].base_stat,
@@ -39,25 +41,36 @@ const App = () => {
  return (
   <div className="App">
     <div className="TitleSection">
-      <h1>Pokédex</h1>
+    <div className="bola">
+      <h1 className="palabra">Pokémon</h1>
+      <img src="/pokemon-pokemon-home.gif" alt="pikachu"/>
+      </div>
+      <div className="inputs">
       <input type="text" 
       onChange={(event) => {
       setPokemonName(event.target.value);
       }}
-
+      
       value={pokemonName.toLowerCase()}
       />
-     <div>
+     
        {pokemonName && <button onClick={searchPokemon}>Search Pokémon</button>}
      </div>
     
     <div className="DisplaySection"></div>
     {!pokemonChosen ? (
-     <h1> Please choose a Pokémon </h1>
+      
+     <h1>Busca tu Pokemon</h1>
+     
+     
     ) : (
       <>
+        
         <h1>{pokemon.name}</h1>
-        <img src={pokemon.image} alt={pokemon.name} />
+        
+        
+        <img className="muñeco" src={pokemon.image} alt={pokemon.name} />
+        <div className="statstext">
         <h3>Number: #{pokemon.number}</h3>
         <h3>Species: {pokemon.species}</h3>
         <h3>Type: {pokemon.type}</h3>
@@ -65,9 +78,12 @@ const App = () => {
         <h4>Attack: {pokemon.attack}</h4>
         <h4>Defense: {pokemon.defense}</h4>
         <h4>Speed: {pokemon.speed}</h4>
+        </div>
       </>
     )}
+    
     </div>
+    
   </div> 
  );
 };
